@@ -17,7 +17,7 @@ back将数据持久化到mysql
 6. 启动全部
 7. 简易调试demo ws.html
 
-#### 示例链接
+#### 示例链接 （微信内打开，访问原网页）
 http://182.61.24.31:81/invest/register.html
 
 #### 免责声明
