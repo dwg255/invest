@@ -2,11 +2,11 @@
 golang开发的h5小游戏 [服务端] domo
 
 #### 软件架构
-account模块提供用户注册、验证、扣费thrift rpc服务
+account 模块提供用户注册、验证、扣费thrift rpc服务
 
-invest模块处理前台http、websocket请求，启动定时器更替游戏状态。前台hub层处理用户登录退出，room层处理房间消息推送、结算。watch etcd进行服务器降级（暂无）
+invest 模块处理前台http、websocket请求，启动定时器更替游戏状态。前台hub层处理用户登录退出，room层处理房间消息推送、结算。watch etcd进行服务器降级（暂无）
 
-back将数据持久化到mysql
+back 模块将数据持久化到mysql
 
 #### 安装方式
 1. 切换到在GOPATH目录下
