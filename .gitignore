@@ -1,0 +1,5 @@
+.idea/
+account/logs/
+invest/logs/
+*.exe
+*.exe~

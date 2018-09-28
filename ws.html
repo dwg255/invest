@@ -1,0 +1,140 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>WebSoket Demo</title>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+
+<div id="valueLabel"></div>
+<textarea rows="20" cols="30" id="contentId" style="width: 1500px;height: 500px;"></textarea>
+<br/>
+<input name="wsUrl" id="wsUrlId" value="ws://localhost:8080/ws"/>
+<button id="createButton" onClick="javascript:CreateConnect()">Create</button>
+<button id="closeButton" onClick="javascript:CloseConnect()">Close</button>
+<br/>
+
+<input name="message" id="messageId" value="act"/>
+<input name="message" id="messageValue" value="login_server_invest"/>
+<!--<input type="checkbox" style="width:100px;height: 30px;" name="chk1">;-->
+<br>
+
+<input name="message" id="messageId1" value="token"/>
+<select id="messageValue1" style="width:173px">
+    <option value="RyzaKhhi4Rjly3VTh/ExV+I=">id 100001</option>
+    <option value="RyzaKhhh4Rjly3VTh/ExV8A=">id 100002</option>
+</select>
+<!--<input type="checkbox" style="width:100px;height: 30px;" name="chk2">;-->
+<br>
+
+<!--<input name="message" id="messageId2" value="content"/>
+<input name="message" id="messageValue2" value="say some thing"/><input type="checkbox" style="width:100px;height: 30px;" name="chk3">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+<button id="sendButton" onClick="javascript:SendMsg()">Send</button>
+</body>
+<script type="text/JavaScript">
+    // tips: WebSocket 调试脚本
+    var WebSocket = WebSocket || window.WebSocket || window.MozWebSocket;
+    function getDate(){
+        var d=new Date();
+        var year=d.getFullYear();
+        var month=change(d.getMonth()+1);
+        var day=change(d.getDate());
+        var hour=change(d.getHours());
+        var minute=change(d.getMinutes());
+        var second=change(d.getSeconds());
+        function change(t){
+            if(t<10){
+                return "0"+t;
+            }else{
+                return t;
+            }
+        }
+        var time=year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second;
+        return time
+    }
+    // 验证浏览器是否支持WebSocket协议
+    if (!WebSocket) {
+        alert("WebSocket not supported by this browser!");
+    }
+    else {
+        var g_ws = null;
+
+        var log = function (s) {
+            if (document.readyState !== "complete") {
+                log.buffer.push(s);
+            } else {
+                document.getElementById("contentId").value += (s + "\n");
+            }
+        }
+
+        function CreateConnect() {
+            var msg = document.getElementById("wsUrlId");
+            console.log(" url: " + msg.value);
+            if (g_ws == null) {
+                try {
+                    // g_ws = new WebSocket(wsUrlValue);
+                    g_ws = new WebSocket(msg.value)
+                    // 监听消息
+                    var reader = new FileReader();
+                    g_ws.onmessage = function (event) {
+                        //valueLabel.innerHTML+ = event.data;
+                        log(getDate()+": " + event.data);
+                    };
+//                         // 打开 WebSocket
+                    g_ws.onclose = function (event) {
+                        log("onclose(), Socket 已关闭!");
+                        g_ws = null;
+                    };
+                    g_ws.onerror = function (event) {
+                        log("onerror(), Socket 发生错误!");
+                    };
+                }
+                catch (e) {
+                    g_ws = null;
+                    log("连接异常, 重置 websocket");
+                }
+            }
+        }
+
+        function SendMsg() {
+            var key = document.getElementById("messageId");
+            var value = document.getElementById("messageValue");
+
+            var key1 = document.getElementById("messageId1");
+            var value1 = document.getElementById("messageValue1");
+            var key2 = document.getElementById("messageId2");
+            var value2 = document.getElementById("messageValue2");
+            // console.log(key.value,value.value,key1.value,value1.value,key2.value,value2.value)
+            // return
+            if (g_ws != null) {
+                var data = {};
+                // var chk1 = $('[name=chk1]').attr('checked');
+                //
+                // if ($("[name=chk1]").prop("checked")) {
+                    data[key.value] = value.value;
+                // }
+                // if ($("[name=chk2]").prop("checked")) {
+                    data[key1.value] = value1.value;
+                // }
+                // if ($("[name=chk2]").prop("checked")) {
+                //     data[key2.value] = value2.value;
+                // }
+                // if (key1.value !== '' && value1.value !== ''){
+                    data[key1.value] = value1.value;
+                // }
+                log("发送 Socket 消息: " + JSON.stringify(data));
+                g_ws.send(JSON.stringify(data))
+            }
+            else {
+                log("Socket 还未创建!, msg: " + value.value);
+            }
+        }
+
+        function CloseConnect() {
+            console.log("CloseConnect()");
+            if (g_ws != null) {
+                g_ws.close();
+            }
+        }
+    }
+</script>
