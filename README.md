@@ -1,4 +1,4 @@
-# invest
+# game
 golang开发的h5小游戏 [服务端] domo
 
 #### 软件架构
