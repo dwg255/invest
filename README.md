@@ -21,5 +21,5 @@ back 模块将数据持久化到mysql
 http://invest.blzz.shop/login/
 
 ![](https://raw.githubusercontent.com/dwg255/invest/master/1.png)
-![](https://raw.githubusercontent.com/dwg255/invest/master/1.png)
+![](https://raw.githubusercontent.com/dwg255/invest/master/2.png)
 ![](https://raw.githubusercontent.com/dwg255/invest/master/3.png)
