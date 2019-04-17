@@ -18,6 +18,7 @@ back 模块将数据持久化到mysql
 7. 简易调试demo ws.html
 
 #### 示例链接 
+http://invest.blzz.shop/login/
 
 #### 免责声明
 仅供学习参考，不得用于任何商业目的。不排除包含BUG。
